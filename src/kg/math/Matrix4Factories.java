@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package kg2019examples_task4threedimensions.math;
+package kg.math;
 
 /**
  * Класс, хранящий методы создания особых матриц.
@@ -42,10 +42,10 @@ public final class Matrix4Factories {
         int a1 = (axisIndex + 1) % 3;
         int a2 = (axisIndex + 2) % 3;
         
-        m.setAt(a1, a1, (float)Math.cos(alpha));
-        m.setAt(a1, a2, (float)Math.sin(alpha));
-        m.setAt(a2, a1, -(float)Math.sin(alpha));
-        m.setAt(a2, a2, (float)Math.cos(alpha));
+        m.setAt(a1, a1, (float) Math.cos(alpha));
+        m.setAt(a1, a2, (float) Math.sin(alpha));
+        m.setAt(a2, a1, -(float) Math.sin(alpha));
+        m.setAt(a2, a2, (float) Math.cos(alpha));
         
         return m;
     }
@@ -83,7 +83,7 @@ public final class Matrix4Factories {
      * @return матрица переноса
      */
     public static Matrix4 translation(Vector3 v) {
-        return translation(v.getX(), v.getY(), v.getZ());
+        return translation(v.x(), v.y(), v.z());
     }
     
     /**

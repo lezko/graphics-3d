@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package kg2019examples_task4threedimensions.draw;
+package kg.draw;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -11,14 +11,14 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-import kg2019examples_task4threedimensions.screen.ScreenConverter;
-import kg2019examples_task4threedimensions.third.PolyLine3D;
+import kg.screen.ScreenConverter;
+import kg.third.PolyLine3D;
 
 /**
  * Рисовальщик на графиксе экрана
  * @author Alexey
  */
-public abstract class ScreenGraphicsDrawer implements IDrawer {
+public abstract class ScreenGraphicsDrawer implements Drawer {
     private ScreenConverter sc;
     private Graphics2D gr;
 
@@ -41,10 +41,10 @@ public abstract class ScreenGraphicsDrawer implements IDrawer {
     }
     
     @Override
-    public void draw(Collection<PolyLine3D> polylines) {
+    public void drawPolyLines(Collection<PolyLine3D> polyLines) {
         List<PolyLine3D> lines = new LinkedList<>();
-        IFilter<PolyLine3D> filter = getFilter();
-        for (PolyLine3D pl : polylines) {
+        Filter<PolyLine3D> filter = getFilter();
+        for (PolyLine3D pl : polyLines) {
             if (filter.permit(pl))
                 lines.add(pl);
         }
@@ -76,7 +76,7 @@ public abstract class ScreenGraphicsDrawer implements IDrawer {
      * Например, можно исключить те линии, которые находятся "позади"
      * @return фильтр
      */
-    protected abstract IFilter<PolyLine3D> getFilter();
+    protected abstract Filter<PolyLine3D> getFilter();
     
     /**
      * Должен возвращать компаратор полилиний для упорядочивания их.

@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package kg2019examples_task4threedimensions.screen;
+package kg.screen;
 
-import kg2019examples_task4threedimensions.math.Vector3;
+import kg.math.Vector3;
 
 /**
  * Класс, предоставляющий функциональность конвертирования реальных координат в экранные
@@ -30,8 +30,8 @@ public class ScreenConverter {
      * @return результирующая экранная точка.
      */
     public ScreenPoint r2s(Vector3 v) {
-        int i = (int)((v.getX() - xr) * ws / wr);
-        int j = (int)((yr - v.getY()) * hs / hr);
+        int i = (int)((v.x() - xr) * ws / wr);
+        int j = (int)((yr - v.y()) * hs / hr);
         return new ScreenPoint(i, j);
     }
     

@@ -2,15 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package kg2019examples_task4threedimensions.third;
+package kg.third;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import kg2019examples_task4threedimensions.draw.IDrawer;
-import kg2019examples_task4threedimensions.math.Vector3;
+import kg.draw.Drawer;
+import kg.math.Vector3;
 import models.Line3D;
 
 /**
@@ -18,9 +18,9 @@ import models.Line3D;
  * @author Alexey
  */
 public class Scene {
-    private List<IModel> models = new ArrayList<>();
+    private List<Model> models = new ArrayList<>();
 
-    public List<IModel> getModelsList() {
+    public List<Model> getModelsList() {
         return models;
     }
     
@@ -64,29 +64,33 @@ public class Scene {
      * @param drawer то, с помощью чего будем рисовать
      * @param cam камера для преобразования координат
      */
-    public void drawScene(IDrawer drawer, ICamera cam) {
+    public void drawScene(Drawer drawer, Camera cam) {
         List<PolyLine3D> lines = new LinkedList<>();
-        LinkedList<Collection<? extends IModel>> allModels = new LinkedList<>();
+        LinkedList<Collection<? extends Model>> allModels = new LinkedList<>();
         allModels.add(models);
         /*Если требуется, то добавляем оси координат*/
         if (isShowAxes())
             allModels.add(axes);
         /*перебираем все полилинии во всех моделях*/
-        for (Collection<? extends IModel> mc : allModels)
-            for (IModel m : mc) {
+        for (Collection<? extends Model> mc : allModels)
+            for (Model m : mc) {
                 for (PolyLine3D pl : m.getLines()) {
                     /*Все точки конвертируем с помощью камеры*/
                     List<Vector3> points = new LinkedList<>();
                     for (Vector3 v : pl.getPoints()) {
-                        points.add(cam.w2s(v));
+                        points.add(cam.w2c(v));
                     }
                     /*Создаём на их сонове новые полилинии, но в том виде, в котором их видит камера*/
-                    lines.add(new PolyLine3D(points, pl.isClosed()));
+
+                    PolyLine3D newPolyLine = new PolyLine3D(points, pl.isClosed());
+                    if (!newPolyLine.isClosed() || newPolyLine.normal().z() < 0) {
+                        lines.add(newPolyLine);
+                    }
                 }
             }
         /*Закрашиваем фон*/
         drawer.clear(backgroundColor);
         /*Рисуем все линии*/
-        drawer.draw(lines);
+        drawer.drawPolyLines(lines);
     }
 }

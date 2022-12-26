@@ -2,23 +2,23 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package kg2019examples_task4threedimensions.third;
+package kg.third;
 
-import kg2019examples_task4threedimensions.math.Matrix4;
-import kg2019examples_task4threedimensions.math.Vector3;
-import kg2019examples_task4threedimensions.math.Vector4;
+import kg.math.Matrix4;
+import kg.math.Vector3;
+import kg.math.Vector4;
 
 /**
  * Описывает класс камеры, который хранит матрицы преобразования мировой системы координат в систему координат камеры.
  * @author Alexey
  */
-public class Camera implements ICamera {
+public class SimpleCamera implements Camera {
     private Matrix4 translate, rotate, scale, projection;
 
     /**
      * Создаёт простую камеру
      */
-    public Camera() {
+    public SimpleCamera() {
         translate = Matrix4.one();
         rotate = Matrix4.one();
         scale = Matrix4.one();
@@ -33,7 +33,7 @@ public class Camera implements ICamera {
      * @return новый вектор
      */
     @Override
-    public Vector3 w2s(Vector3 v) {
+    public Vector3 w2c(Vector3 v) {
         return projection.mul(
             translate.mul(
                 rotate.mul(
@@ -92,6 +92,4 @@ public class Camera implements ICamera {
     public void setTranslate(Matrix4 translate) {
         this.translate = translate;
     }
-    
-    
 }

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package kg2019examples_task4threedimensions.math;
+package kg.math;
 
 /**
  * Класс, представляющий четырёхмерный вектор для проведения матричных вчислений над трёхмерными точками.
@@ -40,7 +40,7 @@ public class Vector4 {
      * @param w четвёртая составляющая.
      */
     public Vector4(Vector3 v, float w) {
-        this(v.getX(), v.getY(), v.getZ(), w);
+        this(v.x(), v.y(), v.z(), w);
     }
     
     /**
